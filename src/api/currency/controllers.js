@@ -9,14 +9,14 @@ var salidaCurrency ;
 var salidaChange  ; 
 
 export default {
-    
-    getLocalValue() { 
-        return [
+    getLocalValue(req, res) { 
+        return res.status(200).json([
             {
                 Rates: salidaCurrency,
                 Variations: salidaChange
             }
-        ] // armo mi array con objs de salida
+        ])
+        // armo mi array con objs de salida
     },
 
     getValue: async (req, res) => {
