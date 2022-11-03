@@ -10,13 +10,14 @@ var salidaChange  ;
 
 export default {
     getLocalValue(req, res) { 
-        return res.status(200).json([
+        return res.status(200).json(
+        [// armo mi array con objs de salida
             {
                 Rates: salidaCurrency,
                 Variations: salidaChange
             }
         ])
-        // armo mi array con objs de salida
+        
     },
 
     getValue: async (req, res) => {
@@ -64,7 +65,7 @@ export default {
 
                 salidaCurrency= pushArraysToData(currency, price); // armo mi array de salida
                 salidaChange= pushArraysToData(currency, change); // armo mi array de salida
-
+                //console.log("Ha pasado 20s");
                 return [
                     { 
                         Rates: salidaCurrency,
@@ -73,6 +74,7 @@ export default {
                 ] // armo mi array con objs de salida
             }
         )
-            .then(data => res.status(200).json(data));
+            //.then(data => res.status(200).json(data));
     }
 }
+
