@@ -1,0 +1,39 @@
+{
+  "name": "tqs",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon node src/index.js",
+    "build": "babel src --out-dir build",
+    "start": "node build/index.js"
+  },
+  "keywords": [],
+  "author": "Juank de Gorvet",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.20.0",
+    "@babel/runtime-corejs3": "^7.20.0",
+    "babel-cli": "^6.26.0",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorvet/eltoqueapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gorvet/eltoqueapi/issues"
+  },
+  "homepage": "https://github.com/gorvet/eltoqueapi#readme",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/node": "^7.20.0",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.19.4"
+  }
+}
