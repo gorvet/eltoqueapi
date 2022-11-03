@@ -4,7 +4,7 @@ import ctrl from './controllers.js';
 
 const router = Router();
 
-// routes
+// routes   
 router.get('/', ctrl.getValue);
 router.get('/local', ctrl.getLocalValue);
 
