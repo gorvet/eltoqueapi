@@ -1,15 +1,20 @@
 import cheerio from 'cheerio';
 import rp from 'request-promise';
 import { pushArraysToData } from '../../libs/pushArrayData.js';
-
+let currency=[];
+let price = [];
+let oldPrice = [];
+let change = [];
+var salidaCurrency ; 
+var salidaChange  ; 
 export default {
+    
+    getLocalValue() { 
+    
+            return [{Rates: salidaCurrency ,  Variations: salidaChange}]// armo mi array con objs de salida
+    },
     getValue: async (req, res) => {
-        let currency=[];
-        let price = [];
-        let oldPrice = [];
-        let change = [];
-        var salidaCurrency ; 
-        var salidaChange  ; 
+        
 
         const options = {
             uri: 'https://eltoque.com',
@@ -49,7 +54,7 @@ export default {
                       }
                        
                     }
-                    console.log(change);
+                    
                   }
                   else{
                     //console.log('no son iguales');
