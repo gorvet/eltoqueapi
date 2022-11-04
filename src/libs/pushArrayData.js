@@ -1,9 +1,9 @@
-const pushArraysToData = (pro, array) => {
-    let withKeys = {}
+const pushArraysToData = (currencies, price) => {
+  let withKeys = {}
 
-    for(let i = 0; i < pro.length; i++){
-      withKeys[pro[i]] = array[i]
-    };
+  for(let i = 0; i < currencies.length; i++){
+    withKeys[currencies[i]] = price[i]
+  };
 
   return withKeys;
 };
