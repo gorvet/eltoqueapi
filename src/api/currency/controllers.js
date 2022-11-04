@@ -3,10 +3,10 @@ import rp from 'request-promise';
 import { pushArraysToData } from '../../libs/pushArrayData.js';
 let currency=[];
 let price = [];
-let oldPrice = [];
+let oldCurrency = [];
 let change = [];
 var salidaCurrency ; 
-var salidaChange  ; 
+var salidaChange  = [];
 
 export default {
     getLocalValue(req, res) { 
@@ -48,25 +48,41 @@ export default {
                     price.push(precio);
                 }); // saco los span q tienen el texto del valor respecto al cup  y lo limpio
 
-                if(price.length === oldPrice.length){ //compatibilizo los length del array
-                    for (let i = 0; i < price.length; i++) {
-                        if(price[i]!==oldPrice[i]){ //solo si vario el precio en esta consulta respecto a la ultima consulta
-                            change[i]=price[i]-oldPrice[i];
-                            oldPrice[i]=price[i];   
-                        }
-                        else if(change[i] == ''|| change[i] == null){
-                            change[i]=0;
-                        }
-                    }
-                }
-                  else{
-                    oldPrice=price;
-                }
-
                 salidaCurrency= pushArraysToData(currency, price); // armo mi array de salida
-                salidaChange= pushArraysToData(currency, change); // armo mi array de salida
+                var nameMoneda= Object.keys(salidaCurrency);
+                
+                //compatibilizo los length del array
+                    for (let i = 0; i < nameMoneda.length; i++) {
+                       
+                        if(oldCurrency.hasOwnProperty(nameMoneda[i]))
+                        {  console.log('existe ' + nameMoneda[i] + ' en oldcurrency');
+                            if( salidaCurrency[nameMoneda[i]]!==oldCurrency[nameMoneda[i]]){ //solo si vario el precio en esta consulta respecto a la ultima consulta
+                                console.log(nameMoneda[i] + ' vario de precio');
+                                salidaChange[nameMoneda[i]]=salidaCurrency[nameMoneda[i]]-oldCurrency[nameMoneda[i]];//encuentro la diferencia por tipo moneda
+                                oldCurrency[nameMoneda[i]]=salidaChange[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
+                            }
+                            else { //solo de control pero igual guardo en el old
+                                console.log(nameMoneda[i] + ' no vario de precio');
+                                oldCurrency[nameMoneda[i]]=salidaChange[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
+
+                            }
+                        
+                        }
+                        else {
+                             console.log('no existe ' + nameMoneda[i] + ' en oldcurrency');
+                            oldCurrency[nameMoneda[i]] = salidaCurrency[nameMoneda[i]]; //creo en old el valor del new para la proxima consulta
+                            console.log(oldCurrency);
+                        }
+                        
+                       
+                       
+                    }
+                
+                
+
+               
                 //console.log("Ha pasado 20s");
-                return [
+                return [// q tal si aqui guardamos en db
                     { 
                         Rates: salidaCurrency,
                         Variations: salidaChange
