@@ -59,11 +59,11 @@ export default {
                             if( salidaCurrency[nameMoneda[i]]!==oldCurrency[nameMoneda[i]]){ //solo si vario el precio en esta consulta respecto a la ultima consulta
                                 console.log(nameMoneda[i] + ' vario de precio');
                                 salidaChange[nameMoneda[i]]=salidaCurrency[nameMoneda[i]]-oldCurrency[nameMoneda[i]];//encuentro la diferencia por tipo moneda
-                                oldCurrency[nameMoneda[i]]=salidaChange[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
+                                oldCurrency[nameMoneda[i]]=salidaCurrency[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
                             }
                             else { //solo de control pero igual guardo en el old
                                 console.log(nameMoneda[i] + ' no vario de precio');
-                                oldCurrency[nameMoneda[i]]=salidaChange[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
+                                oldCurrency[nameMoneda[i]]=salidaCurrency[nameMoneda[i]];//paso el nuevo valor al old para la nueva consulta
 
                             }
                         
