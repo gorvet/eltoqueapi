@@ -4,13 +4,10 @@ import ctrl from './controllers.js';
 
 const router = Router();
 
-setInterval( ctrl.getValue, 60000);//probando cada 60s
- 
+ctrl.getValue()
+    .then(setInterval(ctrl.getValue, 60000));
 
 // routes   
-//router.get('/a', ctrl.getValue);
-
-
 router.get('/', ctrl.getLocalValue);
 
 export default router;
