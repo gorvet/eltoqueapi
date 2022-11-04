@@ -1,9 +1,9 @@
 const pushArraysToData = (currencies, price) => {
-  let withKeys = {}
+  const withKeys = {};
 
-  for(let i = 0; i < currencies.length; i++){
-    withKeys[currencies[i]] = price[i]
-  };
+  currencies.map((currency, index) => {
+    withKeys[currencies[index]] = price[index];
+  });
 
   return withKeys;
 };

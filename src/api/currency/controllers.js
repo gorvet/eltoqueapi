@@ -5,7 +5,7 @@ import { pushArraysToData } from '../../libs/pushArrayData.js';
 // inicializations
 let currency = [];
 let price = [];
-let oldCurrency = [];
+let oldCurrenciesStatus = [];
 var currencyOut; 
 var salidaChange  = [];
 
@@ -29,8 +29,9 @@ export default {
             .then((body) => {
                 const $ = body;
 
-                currency = []; // limpio para q el push no me acumule
-                price = []; // limpio para q el push no me acumule     
+                // cleaning variables
+                currency = [];
+                price = [];   
 
                 $('span.currency','table.hmQVUs').each(function() {
                     currency.push($(this).text().replace('1 ', ''));
@@ -45,18 +46,20 @@ export default {
                 
                 // compatibilizo los length del array
                 currencyName.map((name, index) => {
-                    if(oldCurrency.hasOwnProperty(name[index])){
-                        if(currencyOut[name[index] !== oldCurrency[name[index]]]){ // solo si vario el precio en esta consulta respecto a la ultima consulta
-                            salidaChange[name[index]] = currencyOut[name[index]] - oldCurrency[name[index]]; // encuentro la diferencia por tipo moneda
-                            oldCurrency[name[index]] = currencyOut[name[index]]; // paso el nuevo valor al old para la nueva consulta
-                        }else { 
-                            oldCurrency[currencyName[index]] = currencyOut[currencyName[index]]; // paso el nuevo valor al old para la nueva consulta
-                        } // solo de control pero igual guardo en el old
+                    try {
+                        if(oldCurrenciesStatus.hasOwnProperty(name[index])){
+                            if(currencyOut[name[index] !== oldCurrenciesStatus[name[index]]]){ // solo si vario el precio en esta consulta respecto a la ultima consulta
+                                salidaChange[name[index]] = currencyOut[name[index]] - oldCurrenciesStatus[name[index]]; // encuentro la diferencia por tipo moneda
+                                oldCurrenciesStatus[name[index]] = currencyOut[name[index]]; // paso el nuevo valor al old para la nueva consulta
+                            }
+                        }
+                    } catch (error) {
+                        return error;
                     }
                 });
             }
         )
-            .then(data => data);
+        .then(data => data);
     }
 }
 
